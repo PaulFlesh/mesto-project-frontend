@@ -54,7 +54,7 @@ function App() {
             history.push("/");
         })
         .catch((err) => {
-          localStorage.removeItem("jwt");
+          //localStorage.removeItem("jwt");
           console.log(err);
         });
     }
