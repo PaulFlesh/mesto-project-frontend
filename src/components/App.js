@@ -35,7 +35,7 @@ function App() {
 
   const history = useHistory();
 
-  const token = localStorage.getItem("jwt");
+  const token = localStorage.getItem("userId");
 
   React.useEffect(() => {
     if (token) {
@@ -54,7 +54,7 @@ function App() {
             history.push("/");
         })
         .catch((err) => {
-          localStorage.removeItem("jwt");
+          localStorage.removeItem("userId");
           console.log(err);
         });
     }
@@ -165,7 +165,7 @@ function App() {
 
   function onSignOut() {
     
-    localStorage.removeItem("jwt");
+    localStorage.removeItem("userId");
     setIsLoggedIn(false);
     
     history.push("/signin");

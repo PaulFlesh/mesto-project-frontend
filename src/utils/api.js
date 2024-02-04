@@ -12,16 +12,15 @@ class Api {
       this._token = token;
     }
   
-  
     getAppInfo() {
       return Promise.all([this.getCardList(), this.getUserInfo()]);
     }
   
     getCardList() {
       return fetch(`${this._address}/cards`, {
-        headers: {
-          'Authorization': `Bearer ${this._token}`,
-        },
+        //headers: {
+        //  'Authorization': `Bearer ${this._token}`,
+        //},
       })
       .then(getResponse)
     }
@@ -30,7 +29,7 @@ class Api {
       return fetch(`${this._address}/cards`, {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${this._token}`,
+          //'Authorization': `Bearer ${this._token}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
@@ -45,7 +44,7 @@ class Api {
       return fetch(`${this._address}/cards/${cardId}`, {
         method: 'DELETE',
         headers: {
-          'Authorization': `Bearer ${this._token}`,
+          //'Authorization': `Bearer ${this._token}`,
           'Content-Type': 'application/json',
         },
       }).then(getResponse)
@@ -54,7 +53,7 @@ class Api {
     getUserInfo() {
       return fetch(`${this._address}/users/me`, {
         headers: {
-          'Authorization': `Bearer ${this._token}`,
+          //'Authorization': `Bearer ${this._token}`,
           'Content-Type': 'application/json',
         },
       })
@@ -65,7 +64,7 @@ class Api {
       return fetch(`${this._address}/users/me`, {
         method: 'PATCH',
         headers: {
-          'Authorization': `Bearer ${this._token}`,
+          //'Authorization': `Bearer ${this._token}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
@@ -80,7 +79,7 @@ class Api {
       return fetch(`${this._address}/users/me/avatar`, {
         method: 'PATCH',
         headers: {
-          'Authorization': `Bearer ${this._token}`,
+          //'Authorization': `Bearer ${this._token}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
@@ -90,11 +89,10 @@ class Api {
     }
   
     changeLikeCardStatus(cardId, like) {
-      
       return fetch(`${this._address}/cards/${cardId}/likes`, {
         method: like ? 'PUT' : 'DELETE',
         headers: {
-          'Authorization': `Bearer ${this._token}`,
+          //'Authorization': `Bearer ${this._token}`,
           'Content-Type': 'application/json',
         },
       }).then(getResponse)
@@ -104,6 +102,7 @@ class Api {
       return fetch(`${this._address}/signup`, {
         method: 'POST',
         headers: {
+          'Accept': 'application/json',
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({email, password})
@@ -114,15 +113,18 @@ class Api {
     login(email, password) {
       return fetch(`${this._address}/signin`, {
         method: 'POST',
+        credentials: 'include',
         headers: {
+          'Accept': 'application/json',
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({email, password})
       })
       .then(getResponse)
       .then((data) => {
-        this.setToken(data.token);
-        localStorage.setItem('jwt', data.token)
+        //this.setToken(data.token);
+        //localStorage.setItem('jwt', data.token)
+        localStorage.setItem('userId', data._id)
         return data;
       })
     }
@@ -131,8 +133,9 @@ class Api {
       return fetch(`${this._address}/users/me`, {
         method: 'GET',
         headers: {
+          'Accept': 'application/json',
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
+          //'Authorization': `Bearer ${token}`,
         }
       })
       .then(getResponse)
