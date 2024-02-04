@@ -139,6 +139,7 @@ class Api {
     checkToken(token) {
       return fetch(`${this._address}/users/me`, {
         method: 'GET',
+        credentials: 'include',
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
