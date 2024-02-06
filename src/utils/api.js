@@ -136,7 +136,7 @@ class Api {
       })
     }
   
-    checkToken(token) {
+    checkToken() {
       return fetch(`${this._address}/users/me`, {
         method: 'GET',
         credentials: 'include',
@@ -150,6 +150,7 @@ class Api {
   }
   }
   // Замените на адрес вашего бэкенда
+  //const api = new Api('http://localhost:3000');
   const api = new Api('https://api.mesto.students.nomoredomainsmonster.ru');
   
   export default api;
